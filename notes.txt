@@ -1,0 +1,8 @@
+DeleteUser-> Fetch ID from request -> Call Dao to Delete User -> Redirect List Controller
+
+
+UpdateUser -> Fetch ID from request -> 
+Call Dao to Get Particular User Detail from user id -> 
+Redirect UpdateUser.jsp -> Set values in jsp -> 
+On Submit go to controller [Servlet : UpdateUserController] -> 
+Fetch all the parameters -> Call Dao to update user -> Redirect List Controller 

@@ -44,7 +44,9 @@
 						<td><%=user.getLastName()%></td>
 						<td><%=user.getEmail()%></td>
 						<td><%=user.getGender()%></td>
-						<td><a href="DeleteController?userid=<%=user.getUserId()%>">Delete</a> | Update</td>
+						<td><a href="DeleteController?userid=<%=user.getUserId()%>">Delete</a> |
+						<a href="UpdateUserFormController?userid=<%=user.getUserId() %>"> Update</a>
+						 </td>
 					</tr>
 					<%
 						}

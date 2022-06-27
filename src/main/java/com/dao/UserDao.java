@@ -16,6 +16,50 @@ import com.bean.UserBean;
 //2) use preparedStatement pstmt = con.preparedStatement("query") for fetching query
 //3) set datatypes using 
 public class UserDao {
+	public UserBean getUserByUserID(int userID) {
+		UserBean user = null;
+		try(Connection con = DbConnection.getConnection();
+			PreparedStatement psmt = con.prepareStatement("select * from users where userid=?");
+				){
+			psmt.setInt(1, userID);
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				user= new UserBean();
+				user.setEmail(rs.getString("email"));
+					user.setFirstName(rs.getString("firstname"));
+					user.setLastName(rs.getString("lastname"));
+					user.setGender(rs.getString("gender"));
+					user.setPassword(rs.getString("password"));
+					user.setUserId(userID);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	public boolean updateUser(UserBean user) {
+		boolean flag = false;
+		try(Connection con = DbConnection.getConnection();
+			PreparedStatement psmt = con.prepareStatement("update users set firstname = ?, lastname=?,gender=?,password=? where userid=?");
+			)
+		{
+			psmt.setString(1, user.getFirstName());
+			psmt.setString(2, user.getLastName());
+			psmt.setString(3, user.getGender());
+			psmt.setString(4, user.getPassword());
+			psmt.setInt(5, user.getUserId());
+			int updateCount = psmt.executeUpdate();
+			if(updateCount == 1) {
+				flag = true;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
 	public boolean deleteUser(int userID) {
 		boolean flag = false;
 		try(
